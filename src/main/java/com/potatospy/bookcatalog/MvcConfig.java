@@ -1,0 +1,21 @@
+package com.potatospy.bookcatalog;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+
+// TODO So now I've got MvcConfig which maps some urls
+// AND BookCatalogController which maps others........
+
+@Configuration
+public class MvcConfig implements WebMvcConfigurer {
+
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/hello").setViewName("hello");
+        registry.addViewController("/login").setViewName("login");
+    }
+
+}

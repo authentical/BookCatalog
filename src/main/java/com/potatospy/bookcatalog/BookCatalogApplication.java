@@ -42,6 +42,7 @@ public class BookCatalogApplication implements CommandLineRunner {
 
 
         // TODO: Remove...  TEST ACCESS TO DB
+        ////////////////////////////////////////////////
         System.out.println("\n\n\nOur DataSource is = " + dataSource +"\n\n\n");
 
         Iterable<Book> bookList = bookRepository.findAll();
@@ -57,6 +58,8 @@ public class BookCatalogApplication implements CommandLineRunner {
         for(User user:userList){
             System.out.println("USER: " + user.toString());
         }
+
+        ////////////////////////////////////////////////
 
     }
 }
