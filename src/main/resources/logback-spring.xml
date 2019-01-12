@@ -1,20 +1,34 @@
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"><!-- COnsole appender-->
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>[%date] Thread:%thread [%-5level] %logger{40} - %message%n</pattern>
-        </encoder>
 
-    </appender>
+
+
+    <!-- Don't use this one. FOR NOW, USE SPRING-PROVIDED logging config below-->
+    <!--Console appender-->
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+        <!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+            <!--<pattern>[%date] Thread:%thread [%-5level] %logger{40} - %message%n</pattern>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+
+
+    <!--SPRING-PROVIDED logging config-->
+    <include resource = "org/springframework/boot/logging/logback/base.xml"/>
 
     <logger name="com.potatospy" level="DEBUG"/>
     <logger name="org.springframework" level="DEBUG"/>
+
+
+
+
     <!--Below is logger for JDBC errors -->
     <logger name="org.springframework.jdbc" level="error" additivity="false">
-        <appender-ref ref="STDOUT"/><!--Aren't all the loggers configured for STDOUT by LINE 2 of this file?-->
+        <appender-ref ref="CONSOLE"/>
     </logger>
 
+    <!--Redundent but not ready to delete as I may configure further-->
     <root level="INFO">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 </configuration>

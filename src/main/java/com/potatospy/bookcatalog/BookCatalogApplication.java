@@ -39,6 +39,9 @@ public class BookCatalogApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception { // Can I be more specific?
 
+
+
+        // TODO: Remove...  TEST ACCESS TO DB
         System.out.println("\n\n\nOur DataSource is = " + dataSource +"\n\n\n");
 
         Iterable<Book> bookList = bookRepository.findAll();
@@ -48,7 +51,8 @@ public class BookCatalogApplication implements CommandLineRunner {
         }
 
 
-        Iterable<User> userList = userRepository.findAll();
+        Iterable<User>
+                userList = userRepository.findAll();
 
         for(User user:userList){
             System.out.println("USER: " + user.toString());
