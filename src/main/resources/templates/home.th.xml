@@ -1,5 +1,17 @@
 <thlogic>
     <attr sel="#headId"
           th:replace="~{fragments/head :: headFragment}"/>
-    <attr sel="#welcomeMessage" th:text="#{bc.welcome}"/>
+
+
+    <attr sel="#welcomeMessage" th:text="#{bc.welcome.message}"/>
+
+    <attr sel="#goToCatalogSimple"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).CATALOG_SIMPLE}__}"
+          th:text="#{bc.welcome.gosimplecatalog}"/>
+
+
+
+    <attr sel="#footerId"
+          th:replace="~{fragments/footer :: footerFragment}"/>
+
 </thlogic>

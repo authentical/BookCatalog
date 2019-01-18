@@ -1,9 +1,22 @@
 package com.potatospy.bookcatalog.util;
 
 
-// For mapping LINKS to views
+// Mappings used for request methods
 public class Mappings {
 
-
+    // Welcome homepage
     public static final String HOME = "home";
+
+    // Catalog views
+    public static final String CATALOG_SIMPLE="catalog-simple";
+    // psfs CATALOG_DETAIL = "catalog-detail";
+
+
+
+
+
+    //== constructor
+    private Mappings(){}
+
+
 }
