@@ -2,6 +2,7 @@ package com.potatospy.bookcatalog.config;
 
 import com.potatospy.bookcatalog.util.ViewNames;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,5 +17,11 @@ public class MvcConfig implements WebMvcConfigurer {
 
         registry.addViewController("/").setViewName(ViewNames.HOME);
         registry.addViewController("home").setViewName(ViewNames.HOME);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+
     }
 }
