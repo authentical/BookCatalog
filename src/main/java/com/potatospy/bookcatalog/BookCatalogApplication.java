@@ -36,12 +36,13 @@ public class BookCatalogApplication implements CommandLineRunner {
         SpringApplication.run(BookCatalogApplication.class, args);
     }
 
+
     @Override
     public void run(String... args) throws Exception { // Can I be more specific?
 
 
 
-        // TODO: Remove...  TEST ACCESS TO DB
+        // TODO: Move to BookCatalogService
         ////////////////////////////////////////////////
         System.out.println("\n\n\nOur DataSource is = " + dataSource +"\n\n\n");
 
@@ -62,5 +63,25 @@ public class BookCatalogApplication implements CommandLineRunner {
         ////////////////////////////////////////////////
 
     }
+
+
+
+    ////////////// For storing push comments
+    /*
+    Updated Book class with
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    instead of
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    Changed app.datasource.driverClassName to com.mysql.cj.jdbc.Driver
+
+
+
+
+
+
+
+
+     */
 }
 

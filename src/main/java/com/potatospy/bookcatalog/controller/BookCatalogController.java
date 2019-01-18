@@ -1,6 +1,7 @@
 package com.potatospy.bookcatalog.controller;
 
 
+import com.potatospy.bookcatalog.util.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,22 +13,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class BookCatalogController {
 
-    @ResponseBody   // This is passed to HttpResponse
-    @GetMapping("demo")
-    public String demo() {
-        log.info("demo method called");
-        return "Book Catalog";
-    }
 
+    @ResponseBody
+    @GetMapping("home")
+    public String home(Model model){
 
-    @GetMapping("welcome")
-    public String welcome(Model model){
-
-        log.info("welcome method called");
+        log.info("home method called");
         model.addAttribute("message", "Welcome to the Book Catalog");
 
-        return "welcome";   // Return welcome.jsp
-        /*
+        return ViewNames.HOME;   // Return home.jsp
+        /* See application.properties
             spring.mvc.view.prefix= /WEB-INF/view/
             spring.mvc.view.suffix= .jsp
          */
