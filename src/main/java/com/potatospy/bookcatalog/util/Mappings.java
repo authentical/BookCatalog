@@ -1,12 +1,9 @@
 package com.potatospy.bookcatalog.util;
 
 
+// For mapping LINKS to views
+public class Mappings {
 
-// To reference view files
-public class ViewNames {
 
     public static final String HOME = "home";
-
-
-
 }

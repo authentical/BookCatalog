@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Slf4j
@@ -14,18 +13,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BookCatalogController {
 
 
-    @ResponseBody
-    @GetMapping("home")
+    // == Request methods ==
+
+    @GetMapping("Mappings.HOME")
     public String home(Model model){
 
         log.info("home method called");
         model.addAttribute("message", "Welcome to the Book Catalog");
+        log.info("model ={}", model);
 
-        return ViewNames.HOME;   // Return home.jsp
-        /* See application.properties
-            spring.mvc.view.prefix= /WEB-INF/view/
-            spring.mvc.view.suffix= .jsp
-         */
-
+        return ViewNames.HOME;   // Return home view (NOT the filename)
     }
 }
