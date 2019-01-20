@@ -1,5 +1,5 @@
 <thlogic>
     <attr sel="#headId"
           th:fragment="headFragment"/>
-    <attr sel="#title" th:text="#{bc.title}"/>
+    <attr sel="#title" th:text="#{bc.head.title}"/>
 </thlogic>

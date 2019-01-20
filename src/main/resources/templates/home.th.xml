@@ -2,6 +2,9 @@
     <attr sel="#headId"
           th:replace="~{fragments/head :: headFragment}"/>
 
+    <attr sel="#navigationId"
+          th:replace="~{fragments/navigation :: navigationFragment}"/>
+
 
     <attr sel="#welcomeMessage" th:text="#{bc.welcome.message}"/>
 

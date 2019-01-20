@@ -15,19 +15,6 @@ public class BookCatalogController {
 
 
     // == Request methods ==
-//
-//    // Welcome/Homepage
-//    // Todo: Test it always redirects here first
-//    @GetMapping("Mappings.HOME")
-//    public String home(Model model){
-//
-//        log.info("home method called");
-//        model.addAttribute("message", "Welcome to the Book Catalog");
-//        log.info("model ={}", model);
-//
-//        return ViewNames.HOME;   // Return home view (NOT the filename)
-//    }
-
 
     // Catalog Simple View
     @GetMapping(Mappings.CATALOG_SIMPLE)
@@ -35,7 +22,27 @@ public class BookCatalogController {
 
         log.info("catalogSimple method called");
 
-
         return ViewNames.CATALOG_SIMPLE;
+    }
+
+
+    // Catalog Detail View
+    @GetMapping(Mappings.CATALOG_DETAIL)
+    public String catalogDetail(Model model){
+
+        log.info("catalogDetail method called");
+
+        return ViewNames.CATALOG_DETAIL;
+    }
+
+
+    // Edit View
+    @GetMapping(Mappings.EDIT)
+    public String editBook(Model model){
+
+        log.info("editBook method called");
+
+
+        return ViewNames.EDIT;
     }
 }
