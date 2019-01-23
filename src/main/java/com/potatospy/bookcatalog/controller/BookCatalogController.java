@@ -3,9 +3,11 @@ package com.potatospy.bookcatalog.controller;
 
 import com.potatospy.bookcatalog.model.Book;
 import com.potatospy.bookcatalog.model.BookManager;
+import com.potatospy.bookcatalog.service.BookService;
 import com.potatospy.bookcatalog.util.ViewNames;
 import com.potatospy.bookcatalog.util.Mappings;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,14 @@ import java.util.List;
 public class BookCatalogController {
 
 
+    // == Fields ==
+    private final BookService bookService;
+
+    @Autowired
+    public BookCatalogController(BookService bookService){this.bookService = bookService; }
+
+
+
     // == Request methods ==
 
     // Catalog Simple View
@@ -26,11 +36,6 @@ public class BookCatalogController {
     public String catalogSimple(Model model){
 
         log.info("catalogSimple method called");
-
-
-        // TEST CODE
-        BookManager bookManager = new BookManager();    // This will be in BookService
-        // Output is going to console right now, just testing
 
 
         return ViewNames.CATALOG_SIMPLE;

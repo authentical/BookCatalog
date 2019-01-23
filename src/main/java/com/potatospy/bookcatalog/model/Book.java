@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -62,12 +63,12 @@ public class Book {
     private String edition;
     private String publisher;
     private String authors;
-    private Date modifiedDate;   // Date book was added to DB
+    private LocalDate modifiedDate;   // Date book was added to DB
 
 
     // == Constructor
 
-    public Book(String bookTitle, String fileLoc, Date modifiedDate){
+    public Book(String bookTitle, String fileLoc, LocalDate modifiedDate){
 
         this.bookTitle = bookTitle;
         this.fileLoc = fileLoc;
@@ -75,7 +76,7 @@ public class Book {
     }
 
     // Since @RequiredArgsConstructor is included with @Data... will all these params become mandatory for creating a book?
-    public Book(String bookTitle, String isbn, Date publishedDate, String fileLoc, String edition, String publisher, String authors, Date modifiedDate) {
+    public Book(String bookTitle, String isbn, Date publishedDate, String fileLoc, String edition, String publisher, String authors, LocalDate modifiedDate) {
 
         this.bookTitle = bookTitle;
         this.isbn = isbn;

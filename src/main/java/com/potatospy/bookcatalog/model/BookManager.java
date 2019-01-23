@@ -1,9 +1,13 @@
 package com.potatospy.bookcatalog.model;
 
+import com.potatospy.bookcatalog.dao.BookRepository;
+import com.potatospy.bookcatalog.dao.UserRepository;
 import com.sun.istack.NotNull;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.sql.DataSource;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,41 +18,22 @@ import java.util.ListIterator;
 
 public class BookManager {
 
+
     // == Fields ==
 
     private final List<Book> books = new ArrayList<>(); // List of all books
 
 
-    // == Constructor ==
-
-    public BookManager(){
-        /*
-        * Still testing using Tika library to try to get
-        * metadata out of the ebooks automatically
-        * Todo: Implement or find another method
-         */
-
-        // //dummy data for testing
-        Metadata metadata = new Metadata();
-        Tika tika = new Tika();
-
-        final File folder = new File("D:\\edu_repo\\ebooks\\");
-        for(final File fileEntry : folder.listFiles()){
-
-            //addBook(new Book(fileEntry.getName(), folder.toString(), LocalDate.now());
-            System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + folder.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
-        }
-    }
-
-
     // == Public Methods ==
 
+    // Return BookManager's list of books
     public List<Book> getBooks(){ return Collections.unmodifiableList(books); }
 
-    public Book getBook(int id){    // Todo: This can currently return a null book!!!!!!!!!!!!!!!!!!
+    // Return a Book with id from BookManager's List
+    public Book getBook(Integer id){    // Todo: This can currently return a null book!!!!!!!!!!!!!!!!!!
 
         for(Book book: books){
-            if(book.getId() == id){
+            if(book.getId().equals(id)){
                 return book;
             }
         }
@@ -56,22 +41,7 @@ public class BookManager {
         return null;
     }
 
-    public void scanBookDirectory(File directory){
-
-        // Todo dummy for testing
-        Metadata metadata = new Metadata();     // duplicate code
-        Tika tika = new Tika();                 // duplicate code
-
-        final File folder = new File("D:\\edu_repo\\ebooks\\"); // duplicate code
-        for(final File fileEntry : folder.listFiles()){
-
-            //addBook(new Book(fileEntry.getName(), fileEntry.toString(), LocalDate.now(),null,"",metadata.get(Metadata.AUTHOR) ));
-        }
-        // String bookTitle, String isbn, Date publishedDate, String fileType, String edition, String publisher, String authors)
-
-    }
-
-
+    // Add a Book to BookManager's List
     public void addBook(@NotNull Book newBook){
 
         books.add(newBook);
@@ -90,7 +60,21 @@ public class BookManager {
     }
 
     // Todo: deleteBook
+    public void deleteBook(Integer id){
 
+        for(Book book: books){
+            if(book.getId().equals(id)){
+                // Mark it for deletion (set markForDeletion)
+                // Change it's directory
+                // Then it's up to the user to delete it from the system
+                // But then it's still in the List<Book>
+                // DRAW IT OUT
+            }
+        }
+
+    }
+
+    // Replace Book in BookManager's List with the updated Book
     public void updateBook(@NotNull Book bookToUpdate){
 
         ListIterator<Book> bookListIterator = books.listIterator();

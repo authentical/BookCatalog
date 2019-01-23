@@ -19,17 +19,6 @@ import javax.sql.DataSource;
 public class BookCatalogApplication implements CommandLineRunner {
 
 
-
-    @Autowired
-    DataSource dataSource;  // DataSource config is in application.properties
-
-    @Autowired
-    BookRepository bookRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-
     // Run application
     // Spring calls run method in this class
     public static void main(String[] args) {
