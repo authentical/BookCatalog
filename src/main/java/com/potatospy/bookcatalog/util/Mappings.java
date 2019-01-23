@@ -14,6 +14,9 @@ public class Mappings {
     // Edit Book view
     public static final String EDIT="edit";
 
+    // Manually add a book
+    public static final String ADD_BOOK="add-book";
+
 
 
 

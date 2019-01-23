@@ -3,6 +3,18 @@ package com.potatospy.bookcatalog.model;
 
 import javax.persistence.*;
 
+/* User class backs the DB users table
+
+From database:
+describe users;
+
+user_index	int(11)	NO	PRI		auto_increment
+        username	varchar(40)	NO	UNI
+        password	varchar(128)	NO
+        email	varchar(128)	YES
+
+*/
+
 @Entity
 @Table(name="users")
 public class User {

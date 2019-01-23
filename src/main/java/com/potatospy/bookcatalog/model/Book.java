@@ -1,23 +1,31 @@
 package com.potatospy.bookcatalog.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
+import java.io.File;
 import java.util.Date;
-import java.util.List;
 
 
-/* Book provides an interface between the application and
-the dao for retrieving and storing books
+/* Book class backs the DB books table
 
+From database:
+describe books;
 
-==DESCRIBE bookcatalog.books;==
-book_index	int(11)	NO	PRI		auto_increment
-book_title	varchar(145)	NO	UNI
-isbn	varchar(15)	NO	UNI
+book_index	int(11)	NO	PRI		auto_increment  // Database takes care of index assignment
+book_title	varchar(145)	NO
+isbn	varchar(15)	YES
 published_date	date	YES
-file_type	varchar(5)	NO
+file_loc	varchar(255)	YES
 edition	varchar(45)	YES
 publisher	varchar(75)	YES
 authors	varchar(200)	YES
+modified_date	varchar(255)	YES
+
+
+Todo: Book gets index AFTER SAVE -> Save new book has to be a save and retrieve
+
  */
 
 
@@ -28,94 +36,54 @@ authors	varchar(200)	YES
 
 https://stackoverflow.com/questions/29332907/what-is-the-exact-meaning-of-the-jpa-entity-annotation
  */
+
+
+
+@Data      // Lombok annotation bundling @ToString, @Getter, @EqualsAndHashCode, @Setter, @RequiredArgsConstructor
 @Entity
 @Table(name="books")
+@EqualsAndHashCode      // For comparing object to object
 public class Book {
 
-
-    private String book_title;
-    private String isbn;    // ISBN may have leading zeros so String is used
-    private Date published_date;
-    private String file_type;
-    private String edition;
-    private String publisher;
-    private String authors;
-
+    // == Fields ==
 
     // TODO [1] "The GeneratedValue annotation may be applied to a primary key property or field of an entity..."
-    // The DB auto-increments for new rows so why is everyone using this?
+    // The DB auto-increments for new rows so why are people using this?
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // [1]
     @Column(name="book_index")
-    private Integer book_index;
-    public Integer getBook_index(){
-        return book_index;
-    }
-    // Don't create a setter for book_index. DB manages primary key creation
+    private Integer id;
 
-    public String getBook_title() {
-        return book_title;
-    }
-    public void setBook_title(String book_title) {
-        this.book_title = book_title;
+    private String bookTitle;
+    private String isbn;    // ISBN may have leading zeros so String is used
+    private Date publishedDate;
+    private String fileLoc;    // Should this be File instead of String
+    private boolean markedForDeletion;
+    private String edition;
+    private String publisher;
+    private String authors;
+    private Date modifiedDate;   // Date book was added to DB
+
+
+    // == Constructor
+
+    public Book(String bookTitle, String fileLoc, Date modifiedDate){
+
+        this.bookTitle = bookTitle;
+        this.fileLoc = fileLoc;
+        this.modifiedDate = modifiedDate;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-    public void setIsbn(String isbn) {
+    // Since @RequiredArgsConstructor is included with @Data... will all these params become mandatory for creating a book?
+    public Book(String bookTitle, String isbn, Date publishedDate, String fileLoc, String edition, String publisher, String authors, Date modifiedDate) {
+
+        this.bookTitle = bookTitle;
         this.isbn = isbn;
-    }
-    // TODO Will this be sending the correct Date format for SQL? <-----------------------------------
-    public Date getPublished_date() {
-        return published_date;
-    }
-    public void setPublished_date(Date published_date) {
-        this.published_date = published_date;
-    }
-
-    public String getFile_type() {
-        return file_type;
-    }
-    public void setFile_type(String file_type) {
-        this.file_type = file_type;
-    }
-
-    public String getEdition() {
-        return edition;
-    }
-    public void setEdition(String edition) {
+        this.publishedDate = publishedDate;
+        this.fileLoc = fileLoc;
         this.edition = edition;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
         this.publisher = publisher;
-    }
-
-    public String getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(String authors) {
         this.authors = authors;
-    }
-
-
-    @Override
-    public String toString() {
-        return "\n\nBook{" +
-                "book_index=" + book_index +
-                "book_title='" + book_title + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", published_date=" + published_date +
-                ", file_type='" + file_type + '\'' +
-                ", edition='" + edition + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", authors=" + authors +
-                '}';
+        this.modifiedDate = modifiedDate;
     }
 }
