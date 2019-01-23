@@ -11,13 +11,18 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.io.File;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 
 /* I've tasked BookService with:
-1. Scanning the todo book directory for books and telling BookManager to add each one to it's list
+1. Scanning the todo book directory for books and
+storing the list in the database and
+then retrieving all books from the database and
+telling BookManager to add each one to it's list
 2. Reading the database's books table and creating a List of Books via BookManager
 3. Saving new books to the database
 4. Adding books to BookManager's List via BookManager
@@ -26,10 +31,6 @@ import java.util.List;
 6. Retrieving a book via BookManager
 7. Retrieving all books via BookManager
 8. Updating a book's data via BookManager
-
-
-
-
 */
 
 
@@ -43,7 +44,7 @@ public class BookServiceImpl implements BookService{
     @Autowired
     DataSource dataSource;  // DataSource config is in application.properties
     // Why shouldn't this class be instantiated in BookRepositoryImpl or something
-    // THis is not used here
+    // This is not used here
 
     @Autowired
     BookRepository bookRepository;
@@ -53,28 +54,30 @@ public class BookServiceImpl implements BookService{
     // == Public methods ==
 
     @Override
-    public void scanBookDirectory(File directory) {
+    public void readBookDirectory(File directory) {
 
-        /*
-         * Still testing using Tika library to try to get
-         * metadata out of the ebooks automatically
-         * Todo: Implement or find another method
-         */
+// Todo EXTRACT METADATA
+//        Metadata metadata = new Metadata();
+//        Tika tika = new Tika();
 
 
-        // //dummy data for testing
-        Metadata metadata = new Metadata();
-        Tika tika = new Tika();
 
-        final File folder = new File("D:\\edu_repo\\ebooks\\");
-        for(final File fileEntry : folder.listFiles()){
+
+
+        //final File folder = new File("D:\\edu_repo\\ebooks\\");
+        for(final File fileEntry : directory.listFiles()){
 
             //addBook(new Book(fileEntry.getName(), folder.toString(), LocalDate.now());
-            System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + folder.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
+            System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + directory.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
 
-            Book newBook = new Book(fileEntry.getName(),folder.getName()+"/"+ fileEntry.getName(), LocalDate.now());
+            Book newBook = new Book(fileEntry.getName(),directory.getName()+"/"+ fileEntry.getName(), LocalDateTime.now());
+
+            // Todo: THIS PROBABLY ISNT A GOOD IDEA
+            //bookManager.addBook(bookRepository.save(newBook));
         }
-        //bookManager.scanBookDirectory(directory);
+
+        //System.out.println(bookManager.getBooks());
+
     }
 
     @Override
@@ -98,7 +101,10 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public List<Book> getBooks() {
-        return bookManager.getBooks();
+    public BookManager getBooks() {
+
+        Iterable<Book> bookIterable = bookRepository.findAll();
+
+        return bookManager;
     }
 }

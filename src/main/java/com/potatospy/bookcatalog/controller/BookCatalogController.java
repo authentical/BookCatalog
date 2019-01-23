@@ -1,7 +1,6 @@
 package com.potatospy.bookcatalog.controller;
 
 
-import com.potatospy.bookcatalog.model.Book;
 import com.potatospy.bookcatalog.model.BookManager;
 import com.potatospy.bookcatalog.service.BookService;
 import com.potatospy.bookcatalog.util.ViewNames;
@@ -11,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.io.File;
-import java.util.List;
 
 
 @Slf4j
@@ -27,16 +26,19 @@ public class BookCatalogController {
     @Autowired
     public BookCatalogController(BookService bookService){this.bookService = bookService; }
 
+    // model attributes
+    @ModelAttribute
+    public BookManager bookData(){ return bookService.getBooks(); }
 
 
-    // == Request methods ==
+    // == Handler methods ==
 
     // Catalog Simple View
     @GetMapping(Mappings.CATALOG_SIMPLE)
     public String catalogSimple(Model model){
 
         log.info("catalogSimple method called");
-
+        bookService.readBookDirectory(new File("D:\\edu_repo\\ebooks\\"));
 
         return ViewNames.CATALOG_SIMPLE;
     }
