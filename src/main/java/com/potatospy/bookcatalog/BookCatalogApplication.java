@@ -30,27 +30,6 @@ public class BookCatalogApplication implements CommandLineRunner {
     public void run(String... args) throws Exception { // Can I be more specific?
 
 
-//
-//        // TODO: Move to BookCatalogService
-//        ////////////////////////////////////////////////
-//        System.out.println("\n\n\nOur DataSource is = " + dataSource +"\n\n\n");
-//
-//        Iterable<Book> bookList = bookRepository.findAll();
-//
-//        for(Book book:bookList){
-//            System.out.println("BOOK: " + book.toString());
-//        }
-//
-//
-//        Iterable<User>
-//                userList = userRepository.findAll();
-//
-//        for(User user:userList){
-//            System.out.println("USER: " + user.toString());
-//        }
-//
-//        ////////////////////////////////////////////////
-
     }
 
 
@@ -63,13 +42,6 @@ public class BookCatalogApplication implements CommandLineRunner {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     Changed app.datasource.driverClassName to com.mysql.cj.jdbc.Driver
-
-
-
-
-
-
-
 
      */
 }

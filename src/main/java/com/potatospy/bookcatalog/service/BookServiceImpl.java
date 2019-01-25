@@ -73,10 +73,10 @@ public class BookServiceImpl implements BookService{
             Book newBook = new Book(fileEntry.getName(),directory.getName()+"/"+ fileEntry.getName(), LocalDateTime.now());
 
             // Todo: THIS PROBABLY ISNT A GOOD IDEA
-            //bookManager.addBook(bookRepository.save(newBook));
+            bookManager.addBook(bookRepository.save(newBook));
         }
 
-        //System.out.println(bookManager.getBooks());
+        //System.out.println(bookManager.getBooksFromDb());
 
     }
 
@@ -100,11 +100,58 @@ public class BookServiceImpl implements BookService{
         bookManager.updateBook(updatedBook);
     }
 
+
+    // getBooksFromDb
+    // Troubleshooting 1. Delete all rows
+    // Troubleshooting 2. Populate all rows from directory
+    // 1. Gets books from books table
+    // 2. Adds all books from DB to BookManager's list
+    // 3. Returns the BookManager
     @Override
-    public BookManager getBooks() {
+    public BookManager getBooksFromDb() {
+
+        // Testcode
+        //bookRepository.deleteAll();
+        //readBookDirectory(new File("D:\\edu_repo\\ebooks\\"));
 
         Iterable<Book> bookIterable = bookRepository.findAll();
 
+        for(Book book: bookIterable){
+            bookManager.addBook(book);
+        }
+
         return bookManager;
     }
+
+
+    @Override
+    public List<Book> getBooksFromMeory() {
+        return bookManager.getBooksFromMemory();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

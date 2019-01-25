@@ -20,14 +20,14 @@ public class BookManager {
 
 
     // == Fields ==
-
+    //
     private final List<Book> books = new ArrayList<>(); // List of all books
 
 
     // == Public Methods ==
 
-    // Return BookManager's list of books
-    public List<Book> getBooks(){ return Collections.unmodifiableList(books); }
+    // Return BookManager's list of books Todo not currently using this, made books List public for testing
+    public List<Book> getBooksFromMemory(){ return Collections.unmodifiableList(books); }
 
     // Return a Book with id from BookManager's List
     public Book getBook(Integer id){    // Todo: This can currently return a null book!!!!!!!!!!!!!!!!!!
@@ -53,7 +53,7 @@ public class BookManager {
         Looks like idValue is only used in addBooks.
 
         What happens when a user adds a book manually?
-        Create the book in DB and then call getBooks
+        Create the book in DB and then call getBooksFromDb
 
 
         */

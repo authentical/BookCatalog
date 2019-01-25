@@ -38,11 +38,10 @@ https://stackoverflow.com/questions/29332907/what-is-the-exact-meaning-of-the-jp
  */
 
 
-
+@EqualsAndHashCode      // For comparing object to object
 @Data      // Lombok annotation bundling @ToString, @Getter, @EqualsAndHashCode, @Setter, @RequiredArgsConstructor
 @Entity
 @Table(name="books")
-@EqualsAndHashCode      // For comparing object to object
 public class Book {
 
     // == Fields ==
@@ -65,8 +64,29 @@ public class Book {
     private LocalDateTime modifiedDateTime;   // Date book was added to DB
 
 
-    // == Constructor
+    // == Constructors ==
 
+
+    public Book() { }
+
+    // Add book from DB
+    public Book(Integer id, String bookTitle, String isbn,
+                Date publishedDate, String fileLoc, boolean markedForDeletion,
+                String edition, String publisher, String authors,
+                LocalDateTime modifiedDateTime) {
+        this.id = id;
+        this.bookTitle = bookTitle;
+        this.isbn = isbn;
+        this.publishedDate = publishedDate;
+        this.fileLoc = fileLoc;
+        this.markedForDeletion = markedForDeletion;
+        this.edition = edition;
+        this.publisher = publisher;
+        this.authors = authors;
+        this.modifiedDateTime = modifiedDateTime;
+    }
+
+    // Quick Add (from user, not yet stored in DB)
     public Book(String bookTitle, String fileLoc, LocalDateTime modifiedDateTime){
 
         this.bookTitle = bookTitle;
@@ -74,6 +94,7 @@ public class Book {
         this.modifiedDateTime = modifiedDateTime;
     }
 
+    // For complete book except for id (from user, not yet stored in DB)
     // Since @RequiredArgsConstructor is included with @Data... will all these params become mandatory for creating a book?
     public Book(String bookTitle, String isbn, Date publishedDate, String fileLoc, String edition, String publisher, String authors, LocalDateTime modifiedDateTime) {
 
@@ -86,4 +107,6 @@ public class Book {
         this.authors = authors;
         this.modifiedDateTime = modifiedDateTime;
     }
+
+
 }

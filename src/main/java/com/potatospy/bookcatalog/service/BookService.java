@@ -22,6 +22,8 @@ public interface BookService {
 
     void updateBook(Book updatedBook);  // Updates a book
 
-    BookManager getBooks();     // returns all books
+    BookManager getBooksFromDb();     // returns all books
+
+    List<Book> getBooksFromMeory();
 
 }
