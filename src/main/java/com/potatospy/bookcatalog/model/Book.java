@@ -54,14 +54,11 @@ public class Book {
     private Integer id;
 
     private String bookTitle;
-    private String isbn;    // ISBN may have leading zeros so String is used
     private Date publishedDate;
     private String fileLoc;    // Should this be File instead of String
     private boolean markedForDeletion;
-    private String edition;
-    private String publisher;
-    private String authors;
-    private LocalDateTime modifiedDateTime;   // Date book was added to DB
+    private String authors; // Tika (without Grobid) is not able to extract the full authors list)
+    private LocalDateTime modifiedDateTime;   // Date book DB entry was modified
 
 
     // == Constructors ==
@@ -72,16 +69,13 @@ public class Book {
     // Add book from DB
     public Book(Integer id, String bookTitle, String isbn,
                 Date publishedDate, String fileLoc, boolean markedForDeletion,
-                String edition, String publisher, String authors,
+                String authors,
                 LocalDateTime modifiedDateTime) {
         this.id = id;
         this.bookTitle = bookTitle;
-        this.isbn = isbn;
         this.publishedDate = publishedDate;
         this.fileLoc = fileLoc;
         this.markedForDeletion = markedForDeletion;
-        this.edition = edition;
-        this.publisher = publisher;
         this.authors = authors;
         this.modifiedDateTime = modifiedDateTime;
     }
@@ -96,14 +90,11 @@ public class Book {
 
     // For complete book except for id (from user, not yet stored in DB)
     // Since @RequiredArgsConstructor is included with @Data... will all these params become mandatory for creating a book?
-    public Book(String bookTitle, String isbn, Date publishedDate, String fileLoc, String edition, String publisher, String authors, LocalDateTime modifiedDateTime) {
+    public Book(String bookTitle, String isbn, Date publishedDate, String fileLoc, String authors, LocalDateTime modifiedDateTime) {
 
         this.bookTitle = bookTitle;
-        this.isbn = isbn;
         this.publishedDate = publishedDate;
         this.fileLoc = fileLoc;
-        this.edition = edition;
-        this.publisher = publisher;
         this.authors = authors;
         this.modifiedDateTime = modifiedDateTime;
     }

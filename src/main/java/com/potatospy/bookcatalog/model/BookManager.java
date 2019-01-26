@@ -1,16 +1,8 @@
 package com.potatospy.bookcatalog.model;
 
-import com.potatospy.bookcatalog.dao.BookRepository;
-import com.potatospy.bookcatalog.dao.UserRepository;
-import com.sun.istack.NotNull;
-import org.apache.tika.Tika;
-import org.apache.tika.metadata.Metadata;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.sql.DataSource;
-import java.io.File;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import com.sun.istack.NotNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
