@@ -1,0 +1,14 @@
+<thlogic>
+    <attr sel="#headId"
+          th:replace="~{fragments/head :: headFragment}"/>
+
+    <attr sel="#navigationId"
+          th:replace="~{fragments/navigation :: navigationFragment}"/>
+
+    <attr sel="#footerId"
+          th:replace="~{fragments/footer :: footerFragment}"/>
+
+</thlogic>
+
+
+

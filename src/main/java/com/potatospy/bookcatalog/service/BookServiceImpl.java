@@ -56,18 +56,8 @@ public class BookServiceImpl implements BookService{
     @Override
     public void readBookDirectory(File directory) {
 
-// Todo EXTRACT METADATA
-//        Metadata metadata = new Metadata();
-//        Tika tika = new Tika();
-
-
-
-
-
-        //final File folder = new File("D:\\edu_repo\\ebooks\\");
         for(final File fileEntry : directory.listFiles()){
 
-            //addBook(new Book(fileEntry.getName(), folder.toString(), LocalDate.now());
             System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + directory.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
 
             Book newBook = new Book(fileEntry.getName(),directory.getName()+"/"+ fileEntry.getName(), LocalDateTime.now());
@@ -75,9 +65,6 @@ public class BookServiceImpl implements BookService{
             // Todo: THIS PROBABLY ISNT A GOOD IDEA
             bookManager.addBook(bookRepository.save(newBook));
         }
-
-        //System.out.println(bookManager.getBooksFromDb());
-
     }
 
     @Override

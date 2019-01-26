@@ -7,8 +7,10 @@ import com.potatospy.bookcatalog.service.BookService;
 import com.potatospy.bookcatalog.util.AttributeNames;
 import com.potatospy.bookcatalog.util.ViewNames;
 import com.potatospy.bookcatalog.util.Mappings;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,8 @@ public class BookCatalogController {
     public List<Book> bookData(){ return bookService.getBooksFromDb().getBooksFromMemory(); }
 
 
+
+
     // == Handler methods ==
 
     // Catalog Simple View
@@ -42,7 +46,6 @@ public class BookCatalogController {
 
         log.info("catalogSimple method called");
 
-        System.out.println(bookData());
         // This is adding the entire BookManager book list into the model.
         model.addAttribute(AttributeNames.BOOK_DATA, bookData());
 
@@ -56,6 +59,8 @@ public class BookCatalogController {
 
         log.info("catalogDetail method called");
 
+        // This is adding the entire BookManager book list into the model.
+        model.addAttribute(AttributeNames.BOOK_DATA, bookData());
         return ViewNames.CATALOG_DETAIL;
     }
 

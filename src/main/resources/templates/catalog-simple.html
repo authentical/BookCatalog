@@ -9,17 +9,15 @@
 <div id="navigationId"/>
 
 <table>
-    <tr><th>id</th>
+    <tr><th>Book Index</th>
         <th>Book Title</th>
-        <th>id</th>
-        <th>id</th>
-
-
+        <th>Published Date</th>
     </tr>
 
     <tr th:each="book : ${bookData}">
-            <td th:text="${book.id}"></td>
-            <td th:text="${book.bookTitle}"></td>
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.bookTitle}"></td>
+        <td th:text="${book.publishedDate}"></td>
     </tr>
 </table>
 

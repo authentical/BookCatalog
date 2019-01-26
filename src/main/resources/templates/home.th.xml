@@ -12,10 +12,6 @@
           th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).CATALOG_SIMPLE}__}"
           th:text="#{bc.welcome.gosimplecatalog}"/>
 
-<attr sel="#check"
-      th:text="@{__${T(com.potatospy.bookcatalog.ServletInitializer).check}__}"
-      />
-
     <attr sel="#footerId"
           th:replace="~{fragments/footer :: footerFragment}"/>
 

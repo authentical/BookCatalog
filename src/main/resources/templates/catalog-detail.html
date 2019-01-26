@@ -8,7 +8,28 @@
 
 <div id="navigationId"/>
 
-Enjoyable and detailed Table of Books from the DB
+<table>
+    <tr><th>Book Index</th>
+        <th>Book Title</th>
+        <th>File Location</th>
+        <th>Published Date</th>
+        <th>Delete?</th>
+        <th>Author</th>
+        <th>Book Modified</th>
+
+
+    </tr>
+
+    <tr th:each="book : ${bookData}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.bookTitle}"></td>
+        <td th:text="${book.fileLoc}"></td>
+        <td th:text="${book.publishedDate}"></td>
+        <td th:text="${book.markedForDeletion}"></td>
+        <td th:text="${book.authors}"></td>
+        <td th:text="${book.modifiedDateTime}"></td>
+    </tr>
+</table>
 
 
 
