@@ -25,4 +25,4 @@
 /.nb-gradle/
 
 ### Private info ###
-application.properties
+.properties
