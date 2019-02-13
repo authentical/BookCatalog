@@ -1,0 +1,15 @@
+# enable ansi in console
+spring.output.ansi.enabled=always
+
+# Locale -> So Spring can find correct resource in
+# resources/messages.properties
+spring.mvc.locale=en
+spring.mvc.locale-resolver=fixed
+
+# JDBC connection to bookcatalog DB
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=JDBC_SOURCE
+spring.datasource.username=USERNAME
+spring.datasource.password=PASSWORD
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5Dialect
