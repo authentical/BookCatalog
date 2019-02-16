@@ -4,7 +4,7 @@ import com.potatospy.bookcatalog.dao.BookRepository;
 import com.potatospy.bookcatalog.model.Book;
 import com.potatospy.bookcatalog.model.BookManager;
 import lombok.Getter;
-import org.apache.tika.Tika;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tika.metadata.Metadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -32,7 +33,7 @@ telling BookManager to add each one to it's list
 8. Updating a book's data via BookManager
 */
 
-
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService{
 
@@ -48,21 +49,52 @@ public class BookServiceImpl implements BookService{
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    BookMetadataExtractor bookMetadataExtractor;
+
+
+    // == Constructor ==
+
+    public BookServiceImpl() {
+
+    }
 
 
     // == Public methods ==
 
+
+    /* Read Book Directory,
+    get meta data for each book,
+    create each book,
+    save each book each to DB (and return DB row),
+    add each returned row to BookManager
+    */
     @Override
-    public void readBookDirectory(File directory) {
+    public void loadBooksFromDirectory(File directory) {    // So maybe this should only load the books into directory
+
 
         for(final File fileEntry : directory.listFiles()){
 
-            System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + directory.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
+            /*DEBUG*/ System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + directory.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
 
-            Book newBook = new Book(fileEntry.getName(),directory.getName()+"/"+ fileEntry.getName(), LocalDateTime.now());
+            // Ignore directories
+            if(!fileEntry.isDirectory()) {
 
-            // Todo: THIS PROBABLY ISNT A GOOD IDEA
-            bookManager.addBook(bookRepository.save(newBook));
+                // Gather metadata from book
+                Metadata metadata = bookMetadataExtractor.extractMetaData(fileEntry);
+
+                // Create the book Todo This definitely doesn't seem safe
+                Book newBook = new Book(
+                        metadata.get("title")!=null? metadata.get("title"): fileEntry.getName(),
+                        metadata.get("date")!=null? LocalDate.parse(metadata.get("date").substring(0,10)): LocalDate.parse("1799-12-31"),
+                        fileEntry.getName(),
+                        metadata.get("Author"),
+                        LocalDateTime.now());
+
+
+                // Save Book to DB. DB assigns ID.
+                bookManager.addBook(bookRepository.save(newBook));
+            }
         }
     }
 
@@ -73,7 +105,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public void deleteBook(int id) {
-        //
+        //Put DELETION flag on book and send to DB
     }
 
     @Override
@@ -87,7 +119,7 @@ public class BookServiceImpl implements BookService{
     }
 
 
-    // getBooksFromDb
+    // getBooksFromDb Todo
     // Troubleshooting 1. Delete all rows
     // Troubleshooting 2. Populate all rows from directory
     // 1. Gets books from books table
@@ -98,7 +130,7 @@ public class BookServiceImpl implements BookService{
 
         // Testcode
         //bookRepository.deleteAll();
-        //readBookDirectory(new File("D:\\edu_repo\\ebooks\\"));
+        //loadBooksFromDirectory(new File("D:\\edu_repo\\ebooks\\"));
 
         Iterable<Book> bookIterable = bookRepository.findAll();
 
@@ -111,7 +143,7 @@ public class BookServiceImpl implements BookService{
 
 
     @Override
-    public List<Book> getBooksFromMeory() {
+    public List<Book> getBooksFromMemory() {
         return bookManager.getBooksFromMemory();
     }
 }

@@ -18,7 +18,7 @@ public class BookManager {
 
     // == Public Methods ==
 
-    // Return BookManager's list of books Todo not currently using this, made books List public for testing
+    // Return BookManager's list of books
     public List<Book> getBooksFromMemory(){ return Collections.unmodifiableList(books); }
 
     // Return a Book with id from BookManager's List

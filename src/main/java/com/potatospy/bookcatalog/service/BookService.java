@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BookService {
 
-    void readBookDirectory(File directory);   // Scan file system book directory and
+    void loadBooksFromDirectory(File directory);   // Scan file system book directory and
                                 // add books to database
 
     void addBook(Book newBook); // Add a single book to the database.
@@ -24,6 +24,6 @@ public interface BookService {
 
     BookManager getBooksFromDb();     // returns all books
 
-    List<Book> getBooksFromMeory();
+    List<Book> getBooksFromMemory();
 
 }

@@ -16,7 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.io.File;
 import java.util.List;
+
+
 
 
 @Slf4j
@@ -33,8 +36,9 @@ public class BookCatalogController {
 
     // == Model attributes ==
     @ModelAttribute
-    public List<Book> bookData(){ return bookService.getBooksFromDb().getBooksFromMemory(); }
+    public List<Book> bookData(){ return bookService.getBooksFromMemory(); }
 
+    public static final String bookDirectory="D:\\edu_repo\\ebooks\\";
 
 
 
@@ -45,6 +49,7 @@ public class BookCatalogController {
     public String catalogSimple(Model model){
 
         log.info("catalogSimple method called");
+        bookService.loadBooksFromDirectory(new File (bookDirectory));    //Todo remove later
 
         // This is adding the entire BookManager book list into the model.
         model.addAttribute(AttributeNames.BOOK_DATA, bookData());

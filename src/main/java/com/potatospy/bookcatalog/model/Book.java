@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 
-/* Book class backs the DB books table
+/* The Book class backs the DB books table
 
 From database:
 describe books;
@@ -29,18 +30,9 @@ Todo: Book gets index AFTER SAVE -> Save new book has to be a save and retrieve
  */
 
 
-
-
-/*
-@Entity annotation defines that a class can be mapped to a table.
-
-https://stackoverflow.com/questions/29332907/what-is-the-exact-meaning-of-the-jpa-entity-annotation
- */
-
-
 @EqualsAndHashCode      // For comparing object to object
-@Data      // Lombok annotation bundling @ToString, @Getter, @EqualsAndHashCode, @Setter, @RequiredArgsConstructor
-@Entity
+@Data                   // Lombok annotation bundling @ToString, @Getter, @EqualsAndHashCode, @Setter, @RequiredArgsConstructor
+@Entity                 // @Entity annotation defines that a class can be mapped to a table.
 @Table(name="books")
 public class Book {
 
@@ -54,7 +46,7 @@ public class Book {
     private Integer id;
 
     private String bookTitle;
-    private Date publishedDate;
+    private LocalDate publishedDate;
     private String fileLoc;    // Should this be File instead of String
     private boolean markedForDeletion;
     private String authors; // Tika (without Grobid) is not able to extract the full authors list)
@@ -63,12 +55,11 @@ public class Book {
 
     // == Constructors ==
 
-
     public Book() { }
 
     // Add book from DB
     public Book(Integer id, String bookTitle, String isbn,
-                Date publishedDate, String fileLoc, boolean markedForDeletion,
+                LocalDate publishedDate, String fileLoc, boolean markedForDeletion,
                 String authors,
                 LocalDateTime modifiedDateTime) {
         this.id = id;
@@ -80,7 +71,20 @@ public class Book {
         this.modifiedDateTime = modifiedDateTime;
     }
 
-    // Quick Add (from user, not yet stored in DB)
+    // Add book after metadata has been extracted
+    public Book(String bookTitle, LocalDate publishedDate, String fileLoc, String authors, LocalDateTime modifiedDateTime){
+        this.id = id;
+        this.bookTitle = bookTitle;
+        this.publishedDate = publishedDate;
+        this.fileLoc = fileLoc;
+        this.markedForDeletion = markedForDeletion;
+        this.authors = authors;
+        this.modifiedDateTime = modifiedDateTime;
+    }
+
+
+
+    // Quick Add (used via ADD_BOOK view)
     public Book(String bookTitle, String fileLoc, LocalDateTime modifiedDateTime){
 
         this.bookTitle = bookTitle;
@@ -90,7 +94,7 @@ public class Book {
 
     // For complete book except for id (from user, not yet stored in DB)
     // Since @RequiredArgsConstructor is included with @Data... will all these params become mandatory for creating a book?
-    public Book(String bookTitle, String isbn, Date publishedDate, String fileLoc, String authors, LocalDateTime modifiedDateTime) {
+    public Book(String bookTitle, String isbn, LocalDate publishedDate, String fileLoc, String authors, LocalDateTime modifiedDateTime) {
 
         this.bookTitle = bookTitle;
         this.publishedDate = publishedDate;
