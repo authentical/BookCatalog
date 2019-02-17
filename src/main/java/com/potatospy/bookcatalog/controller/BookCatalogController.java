@@ -92,10 +92,15 @@ public class BookCatalogController {
     }
     // Edit Book post mapping
     @PostMapping(Mappings.EDIT_BOOK)
-    public String editBookSubmit(@ModelAttribute Book editedBook){
+    public String editBookSubmit(@ModelAttribute(AttributeNames.BOOK) Book editedBook, Model model){
 
-        //model.addAttribute(AttributeNames.BOOK_DIRECTORY, bookService.getBookDirectory());
-        return ViewNames.CATALOG_DETAIL;
+        log.info("editBookSubmit called");
+
+        bookService.updateBook(editedBook);
+
+
+
+        return "redirect:/" + Mappings.CATALOG_DETAIL;
     }
 
 

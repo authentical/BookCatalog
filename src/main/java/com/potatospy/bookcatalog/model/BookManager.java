@@ -72,7 +72,7 @@ public class BookManager {
         while(bookListIterator.hasNext()){
             Book book = bookListIterator.next();
 
-            if(book.equals(bookToUpdate)){
+            if(book.getId().equals(bookToUpdate.getId())){
 
                 bookListIterator.set(bookToUpdate);
                 break;

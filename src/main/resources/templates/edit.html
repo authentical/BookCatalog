@@ -8,6 +8,23 @@
 
 <div id="navigationId"/>
 <div align="center">
+
+
+    <form action="#" th:action="@{__${T(com.potatospy.bookcatalog.util.Mappings).EDIT_BOOK}__}" th:object="${book}" method="post">
+
+        <p>Index: <input type="text" th:field="*{id}" th:text="${book.id}"/>
+        <p>Title: <input type="text" th:field="*{bookTitle}" th:text="${book.bookTitle}"/></p>
+        <p>Published Date: <input type="text" th:field="*{publishedDate}" th:text="${book.publishedDate}"/></p>
+        <p>File location: <input type="text" th:field="*{fileLoc}" th:text="${book.fileLoc}"/></p>
+        <p>Marked for deletion: <input type="text" th:field="*{markedForDeletion}" th:text="${book.markedForDeletion}"/></p>
+        <p>Authors: <input type="text" th:field="*{authors}" th:text="${book.authors}"/></p>
+
+        <p><input type="submit" value="Submit"/></p>
+
+
+    </form>
+
+
     <table>
 
         <tr>
