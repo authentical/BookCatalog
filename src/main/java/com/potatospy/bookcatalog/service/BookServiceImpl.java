@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 
@@ -44,6 +47,8 @@ public class BookServiceImpl implements BookService{
     @Getter
     private final BookManager bookManager = new BookManager();
 
+    private File bookDirectory = new File("D:\\edu_repo\\ebooks_test\\");
+
     @Autowired
     DataSource dataSource;  // DataSource config is in application.properties
     // Why shouldn't this class be instantiated in BookRepositoryImpl or something
@@ -63,20 +68,29 @@ public class BookServiceImpl implements BookService{
     }
 
 
+    // == INIT ==
+    // Todo make sure directories exist
+
+
     // == Public methods ==
 
 
-    /* Read Book Directory,
-    get meta data for each book,
-    create each book,
-    save each book each to DB (and return DB row),
-    add each returned row to BookManager
+    /* Read Book Directory
+    1. Delete all entries in the books table in DB
+    2. If the file isn't a directory,
+    3. Get meta data for each book,
+    4. create each book,
+    5. Save each book each to DB (and return DB row),
+    6. Add each returned row to BookManager
     */
     @Override
-    public void loadBooksFromDirectory(File directory) {    // So maybe this should only load the books into directory
+    public void loadBooksFromDirectory(File directory) {
+        // Todo Make sure book directory is initialized
 
+        bookRepository.deleteAll(); // Wipe DB  table
+        bookManager.deleteAllBooks();   // Wipe books from memory
 
-        for(final File fileEntry : directory.listFiles()){
+        for(final File fileEntry : directory.listFiles()){  // Todo catch Null pointer
 
             /*DEBUG*/ System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + directory.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
 
@@ -99,23 +113,52 @@ public class BookServiceImpl implements BookService{
                 bookManager.addBook(bookRepository.save(newBook));
             }
         }
-
     }
+
 
     @Override
     public void addBook(Book newBook) {
         bookManager.addBook(newBook);
     }
 
+
+    // Mark book for deletion and move it to BOOKDIRECTORY/DELETE
     @Override
-    public void deleteBook(int id) {
-        //Put DELETION flag on book and send to DB
+    public void deleteBook(Book bookToDelete) { // Todo catch DELETE directory not exist
+
+        String bookFileLoc = bookToDelete.getFileLoc();
+
+        String moveFrom =bookDirectory + "\\" + bookFileLoc;
+        String moveTo= bookDirectory + "\\DELETE\\" + bookFileLoc;
+
+        try {
+            Path temp = Files.move
+                    (Paths.get(moveFrom),
+                            Paths.get(moveTo));
+
+            if (temp != null) {
+                log.info("File moved to DELETE folder");
+            } else {
+                log.info("Couldn't move file from " + moveFrom +" to " + moveTo);
+            }
+
+
+            bookToDelete.setFileLoc(moveTo);
+            bookManager.deleteBook(bookToDelete);
+            bookRepository.save(bookToDelete);
+
+        }catch(IOException e){log.info("deleteBook got IOException");
+            log.info("Couldn't move file from " + moveFrom +" to " + moveTo +
+                    "\nFailed to move the file to DELETE folder");
+        }
     }
+
 
     @Override
     public Book getBook(int id) {
         return bookManager.getBook(id);
     }
+
 
     @Override
     public void updateBook(Book updatedBook) {
@@ -132,9 +175,8 @@ public class BookServiceImpl implements BookService{
     @Override
     public BookManager getBooksFromDb() {
 
-        // Testcode
-        //bookRepository.deleteAll();
-        //loadBooksFromDirectory(new File("D:\\edu_repo\\ebooks\\"));
+
+        bookManager.deleteAllBooks();
 
         Iterable<Book> bookIterable = bookRepository.findAll();
 
@@ -151,6 +193,12 @@ public class BookServiceImpl implements BookService{
         return bookManager.getBooksFromMemory();
     }
 
+
+
+
+    // Get and Set
+    public File getBookDirectory() { return bookDirectory; }
+    public void setBookDirectory(File bookDirectory) { this.bookDirectory = bookDirectory; }
 }
 
 

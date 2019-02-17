@@ -15,9 +15,9 @@ public interface BookService {
 
     void addBook(Book newBook); // Add a single book to the database.
 
-    void deleteBook(int id);    // This should only be marking the book
-                                // for deletion so BookManager can move the
-                                // file
+    void deleteBook(Book bookToDelete);     // This should only be marking the book
+                                            // for deletion so BookManager can move the
+                                            // file
 
     Book getBook(int id);       // returns a book
 
@@ -27,5 +27,6 @@ public interface BookService {
 
     List<Book> getBooksFromMemory();
 
-
+    File getBookDirectory();
+    void setBookDirectory(File bookDirectory);
 }

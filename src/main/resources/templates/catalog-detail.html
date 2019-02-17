@@ -8,6 +8,8 @@
 
 <div id="navigationId"/>
 
+<p th:text="${bookdirectory}"/>
+
 <table>
     <tr><th>Book Index</th>
         <th>Book Title</th>
@@ -28,7 +30,11 @@
         <td th:text="${book.authors}"></td>
         <td th:text="${book.modifiedDateTime}"></td>
         <td>
-            <a th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).EDIT_BOOK}__(id=${book.id})}" th:text="#{bc.editButton}"/></td>
+            <a th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).EDIT_BOOK}__(id=${book.id})}" th:text="#{bc.editButton}"/>
+        </td>
+        <td>
+            <a th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).DELETE_BOOK}__(id=${book.id})}" th:text="#{bc.deleteButton}"/>
+        </td>
     </tr>
 </table>
 

@@ -51,20 +51,18 @@ public class BookManager {
         */
     }
 
-    // Todo: deleteBook
-    public void deleteBook(Integer id){
+    // Mark book for deletion and update book list
+    public void deleteBook(Book bookToDelete){
 
-        for(Book book: books){
-            if(book.getId().equals(id)){
-                // Mark it for deletion (set markForDeletion)
-                // Change it's directory
-                // Then it's up to the user to delete it from the system
-                // But then it's still in the List<Book>
-                // DRAW IT OUT
-            }
-        }
+        bookToDelete.setMarkedForDeletion(true);
 
+        updateBook(bookToDelete);
     }
+    public void deleteAllBooks(){
+
+        books.clear();
+    }
+
 
     // Replace Book in BookManager's List with the updated Book
     public void updateBook(@NotNull Book bookToUpdate){
@@ -81,33 +79,6 @@ public class BookManager {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -7,9 +7,12 @@
     <attr sel="#home"
           th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).HOME}__}"
           th:text="#{bc.home}"/>
-    <attr sel="#loadBooks"
-          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).LOAD_BOOKS}__}"
-          th:text="#{bc.loadBooks}"/>
+    <attr sel="#scanLoad"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).SCAN_AND_LOAD_BOOKS}__}"
+          th:text="#{bc.scanAndLoadBooks}"/>
+    <attr sel="#loadBooksFromDB"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).LOAD_BOOKS_FROM_DB}__}"
+          th:text="#{bc.loadBooksFromDB}"/>
     <attr sel="#catalogSimple"
           th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).CATALOG_SIMPLE}__}"
           th:text="#{bc.catalogSimple}"/>
