@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<navigation id="navigationId">
-    <!-- CSS not working... not sure which directory css should go in -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" media="all" href="navigation.css">
+    <navigation id="navigationId">
+        <!-- CSS not working... not sure which directory css should go in -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="navigation.css">
 
-    <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>|
-        <a href="#catalogsimple">Simple View</a>|
-        <a href="#catalogdetail">Detail View</a>|
-        <a href="#logout">Logout</a>
-        <!--<a href="javascript:void(0);" class="icon" onclick="myFunction()">-->
-            <!--<i class="fa fa-bars"></i>-->
-        </a>
-    </div>
-</navigation>
+        <div class="topnav" id="myTopnav">
+            <a id="home">Home</a>|
+            <a id="loadBooks">Load Books</a>|
+            <a id="catalogSimple">Simple View</a>|
+            <a id="catalogDetail">Detail View</a>|
+            <a id="addBook">Add Book</a>
+            <a href="#logout">Logout</a>
+        </div>
+    </navigation>
 
 </html>

@@ -2,19 +2,15 @@ package com.potatospy.bookcatalog.controller;
 
 
 import com.potatospy.bookcatalog.model.Book;
-import com.potatospy.bookcatalog.model.BookManager;
 import com.potatospy.bookcatalog.service.BookService;
 import com.potatospy.bookcatalog.util.AttributeNames;
 import com.potatospy.bookcatalog.util.ViewNames;
 import com.potatospy.bookcatalog.util.Mappings;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.util.List;
@@ -38,7 +34,7 @@ public class BookCatalogController {
     @ModelAttribute
     public List<Book> bookData(){ return bookService.getBooksFromMemory(); }
 
-    public static final String bookDirectory="D:\\edu_repo\\ebooks\\";
+    public static final File bookDirectory= new File("D:\\edu_repo\\ebooks_test\\");
 
 
 
@@ -49,7 +45,6 @@ public class BookCatalogController {
     public String catalogSimple(Model model){
 
         log.info("catalogSimple method called");
-        bookService.loadBooksFromDirectory(new File (bookDirectory));    //Todo remove later
 
         // This is adding the entire BookManager book list into the model.
         model.addAttribute(AttributeNames.BOOK_DATA, bookData());
@@ -70,13 +65,29 @@ public class BookCatalogController {
     }
 
 
+    // Add Book View
+    @GetMapping(Mappings.ADD_BOOK)
+    public String addBook(Model model){
+
+        log.info("addBook method called");
+
+        return ViewNames.ADD_BOOK;
+    }
+
+
     // Edit View
     @GetMapping(Mappings.EDIT)
     public String editBook(Model model){
 
         log.info("editBook method called");
 
-
         return ViewNames.EDIT;
+    }
+
+
+    @GetMapping(Mappings.LOAD_BOOKS)
+    public void loadBooks(Model model) {
+
+        bookService.loadBooksFromDirectory(bookDirectory);
     }
 }

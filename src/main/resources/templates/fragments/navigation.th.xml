@@ -3,4 +3,21 @@
           th:fragment="navigationFragment"/>
 
 
+
+    <attr sel="#home"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).HOME}__}"
+          th:text="#{bc.home}"/>
+    <attr sel="#loadBooks"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).LOAD_BOOKS}__}"
+          th:text="#{bc.loadBooks}"/>
+    <attr sel="#catalogSimple"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).CATALOG_SIMPLE}__}"
+          th:text="#{bc.catalogSimple}"/>
+    <attr sel="#catalogDetail"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).CATALOG_DETAIL}__}"
+          th:text="#{bc.catalogDetail}"/>
+    <attr sel="#addBook"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).ADD_BOOK}__}"
+          th:text="#{bc.addBook}"/>
+
 </thlogic>

@@ -18,7 +18,7 @@ public class Mappings {
     public static final String ADD_BOOK="add-book";
 
 
-
+    public static final String LOAD_BOOKS="load-books";
 
     //== constructor
     private Mappings(){}

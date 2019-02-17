@@ -23,6 +23,8 @@
 
     <h2>Feature Tracking</h2>
     <ol>
+        <li>Estimated time remaining for loadBookDirectory</li>
+        <li>Add isRUnning to loadBookDirectory method</li>
         <li>https://isbndb.com/ , get API for ISBN lookup</li>
         <li>Is the header and footer working on all pages?</li>
         <li>JSP support</li>
@@ -32,16 +34,17 @@
         <li>Setup formating in catalog views</li>
     </ol>
 
-<h2>Known Issues</h2>
-<ol>
-    <li>Books are displayed 4? times in Simple View</li>
-    <li>Header menu is currently static. How will I make it show SImple View link ?</li>
-    <li>All the html files have: html lang="en" at the top - causes issues with localization?</li>
-    <li>Which one @GeneratedValue(strategy=GenerationType.IDENTITY)
-        @GeneratedValue(strategy = GenerationType.AUTO)</li>
-    <li>@Value is underlined red when I try to refer to application.properties to configure book directory</li>
-    <li>application.properties is still uploaded! Why isnt it ignored?</li>
-</ol>
+    <h2>Known Issues</h2>
+    <ol>
+        <li>Time to implement duplicate check to loadBookDirectory</li>
+        <li>org.apache.tika.exception.TikaException: can't copy beyond array length</li>
+        <li>Header menu is currently static. How will I make it show SImple View link ?</li>
+        <li>All the html files have: html lang="en" at the top - causes issues with localization?</li>
+        <li>Which one @GeneratedValue(strategy=GenerationType.IDENTITY)
+            @GeneratedValue(strategy = GenerationType.AUTO)</li>
+        <li>@Value is underlined red when I try to refer to application.properties to configure book directory</li>
+        <li>application.properties is still uploaded! Why isnt it ignored?</li>
+    </ol>
 
 
 

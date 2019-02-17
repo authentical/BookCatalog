@@ -14,7 +14,7 @@
         <th>Published Date</th>
     </tr>
 
-    <tr th:each="book : ${bookData}">
+    <tr th:each="book : ${bookdata}">
         <td th:text="${book.id}"></td>
         <td th:text="${book.bookTitle}"></td>
         <td th:text="${book.publishedDate}"></td>

@@ -33,6 +33,9 @@ telling BookManager to add each one to it's list
 8. Updating a book's data via BookManager
 */
 
+
+
+
 @Slf4j
 @Service
 public class BookServiceImpl implements BookService{
@@ -96,6 +99,7 @@ public class BookServiceImpl implements BookService{
                 bookManager.addBook(bookRepository.save(newBook));
             }
         }
+
     }
 
     @Override
@@ -146,6 +150,7 @@ public class BookServiceImpl implements BookService{
     public List<Book> getBooksFromMemory() {
         return bookManager.getBooksFromMemory();
     }
+
 }
 
 
