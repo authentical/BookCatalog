@@ -12,13 +12,15 @@ public class Mappings {
     public static final String  CATALOG_DETAIL = "catalog-detail";
 
     // Edit Book view
-    public static final String EDIT="edit";
+    public static final String EDIT_BOOK="edit-book";
 
     // Manually add a book
     public static final String ADD_BOOK="add-book";
 
 
     public static final String LOAD_BOOKS="load-books";
+
+
 
     //== constructor
     private Mappings(){}

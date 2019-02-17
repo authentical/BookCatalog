@@ -27,3 +27,4 @@
 ### Private info ###
 .properties
 '.idea' 
+'src/main/resources/application.properties' 

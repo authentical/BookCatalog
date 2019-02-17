@@ -12,7 +12,7 @@ public class ViewNames {
     public static final String CATALOG_DETAIL="catalog-detail";
 
     // Edit Book view
-    public static final String EDIT="edit";
+    public static final String EDIT_BOOK="edit";
 
     // Manually add a book
     public static final String ADD_BOOK="add-book";

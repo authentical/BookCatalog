@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head id="headId">
     <meta charset="UTF-8">
     <title>Title content</title>
@@ -7,9 +7,36 @@
 <body>
 
 <div id="navigationId"/>
+<div align="center">
+    <table>
 
-Edit book
+        <tr>
+            <th>Book Title</th>
+            <td th:text="${book.bookTitle}"></td>
+        </tr>
 
+        <tr>
+            <th>Published Date</th>
+            <th><td th:text="${book.publishedDate}"></td></th>
+        </tr>
+
+        <tr>
+            <th>File location</th>
+            <th><td th:text="${book.fileLoc}"></td></th>
+        </tr>
+
+        <tr>
+            <th>Marked for deletion</th>
+            <th><td th:text="${book.markedForDeletion}"></td></th>
+        </tr>
+
+        <tr>
+            <th>Authors</th>
+            <th><td th:text="${book.authors}"></td></th>
+        </tr>
+
+    </table>
+</div>
 
 
 

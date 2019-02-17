@@ -16,6 +16,7 @@
         <th>Delete?</th>
         <th>Author</th>
         <th>Book Modified</th>
+        <th>Edit</th>
     </tr>
 
     <tr th:each="book : ${bookdata}">
@@ -26,6 +27,8 @@
         <td th:text="${book.markedForDeletion}"></td>
         <td th:text="${book.authors}"></td>
         <td th:text="${book.modifiedDateTime}"></td>
+        <td>
+            <a th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).EDIT_BOOK}__(id=${book.id})}" th:text="#{bc.editButton}"/></td>
     </tr>
 </table>
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.View;
 import java.io.File;
 import java.util.List;
 
@@ -74,20 +75,45 @@ public class BookCatalogController {
         return ViewNames.ADD_BOOK;
     }
 
+    // Add Book post mapping
+    @PostMapping(Mappings.ADD_BOOK)
+    public String addBookSubmit(@ModelAttribute Book newBook){
+
+        return ViewNames.CATALOG_DETAIL;
+    }
+
 
     // Edit View
-    @GetMapping(Mappings.EDIT)
-    public String editBook(Model model){
+    @GetMapping(Mappings.EDIT_BOOK)
+    public String editBook(@RequestParam int id, Model model){
 
-        log.info("editBook method called");
+        log.info("editing book with it = {}", id);
 
-        return ViewNames.EDIT;
+        Book editableBook = bookService.getBook(id);
+
+        model.addAttribute(AttributeNames.BOOK, editableBook);
+
+        return ViewNames.EDIT_BOOK;
+    }
+
+    // Edit Book post mapping
+    @PostMapping(Mappings.EDIT_BOOK)
+    public String editBookSubmit(@ModelAttribute Book editedBook){
+
+
+        return ViewNames.CATALOG_DETAIL;
     }
 
 
     @GetMapping(Mappings.LOAD_BOOKS)
-    public void loadBooks(Model model) {
+    public String loadBooks(Model model) {
+
+        log.info("Load Books called");
 
         bookService.loadBooksFromDirectory(bookDirectory);
+
+        model.addAttribute(AttributeNames.BOOK_DATA, bookData());
+
+        return ViewNames.CATALOG_DETAIL;
     }
 }
