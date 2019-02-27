@@ -22,5 +22,8 @@
     <attr sel="#addBook"
           th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).ADD_BOOK}__}"
           th:text="#{bc.addBook}"/>
+    <attr sel="#confirmDelete"
+          th:href="@{__${T(com.potatospy.bookcatalog.util.Mappings).CONFIRM_DELETE}__}"
+          th:text="#{bc.confirmDelete}"/>
 
 </thlogic>

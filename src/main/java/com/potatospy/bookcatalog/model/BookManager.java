@@ -2,12 +2,14 @@ package com.potatospy.bookcatalog.model;
 
 
 import com.sun.istack.NotNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
+@Slf4j
 public class BookManager {
 
 
@@ -26,6 +28,7 @@ public class BookManager {
 
         for(Book book: books){
             if(book.getId().equals(id)){
+                log.info("\n\n\n####################\nGot book "+ book.getBookTitle());
                 return book;
             }
         }
@@ -57,12 +60,14 @@ public class BookManager {
         bookToDelete.setMarkedForDeletion(true);
 
         updateBook(bookToDelete);
+        log.info("deleteBook called");
     }
+
+    // Remove all books from memory
     public void deleteAllBooks(){
 
         books.clear();
     }
-
 
     // Replace Book in BookManager's List with the updated Book
     public void updateBook(@NotNull Book bookToUpdate){

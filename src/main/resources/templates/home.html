@@ -23,6 +23,12 @@
 
     <h2>Feature Tracking</h2>
     <ol>
+        <li>Add book</li>
+        <li>Send user to LOADING page when performing book scan and load</li>
+        <li>Japanese support</li>
+        <li>Featuring tracking and known issues quick view/edit</li>
+        <li>Read Book button</li>
+        <li>Directory tracking in header for detail/simple</li>
         <li>Estimated time remaining for loadBookDirectory</li>
         <li>Add isRUnning to loadBookDirectory method</li>
         <li>https://isbndb.com/ , get API for ISBN lookup</li>
@@ -35,7 +41,11 @@
     </ol>
 
     <h2>Known Issues</h2>
+
     <ol>
+        <li>If a file gets moved manually, the DB will not mirror that change until a scan/load. So the app should detect such a change</li>
+        <li>User can Edit a book's fie location</li>
+        <li>Local mysql connection not available until I open workbench!</li>
         <li>Time to implement duplicate check to loadBookDirectory</li>
         <li>org.apache.tika.exception.TikaException: can't copy beyond array length</li>
         <li>Header menu is currently static. How will I make it show SImple View link ?</li>

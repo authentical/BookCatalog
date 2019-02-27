@@ -74,7 +74,7 @@ public class BookCatalogController {
     @PostMapping(Mappings.ADD_BOOK)
     public String addBookSubmit(@ModelAttribute Book newBook){
 
-        return ViewNames.CATALOG_DETAIL;
+        return "redirect:/" + ViewNames.CATALOG_DETAIL;
     }
 
 
@@ -90,6 +90,7 @@ public class BookCatalogController {
 
         return ViewNames.EDIT_BOOK;
     }
+
     // Edit Book post mapping
     @PostMapping(Mappings.EDIT_BOOK)
     public String editBookSubmit(@ModelAttribute(AttributeNames.BOOK) Book editedBook, Model model){
@@ -110,7 +111,7 @@ public class BookCatalogController {
 
         log.info("Load Books called");
 
-        bookService.loadBooksFromDirectory(bookService.getBookDirectory());
+        bookService.loadBooksFromDirectory();
 
         model.addAttribute(AttributeNames.BOOK_DATA, bookData());
         model.addAttribute(AttributeNames.BOOK_DIRECTORY, bookService.getBookDirectory());
@@ -140,9 +141,7 @@ public class BookCatalogController {
 
         log.info("deleting book with id = {}", id);
 
-        Book bookToDelete = bookService.getBook(id);
-
-        bookService.deleteBook(bookToDelete); // Book is marked for deletion, DB and memory copy updated
+        bookService.deleteBook(bookService.getBook(id)); // Book is marked for deletion, DB and memory copy updated
 
         model.addAttribute(AttributeNames.BOOK_DATA, bookData());
         model.addAttribute(AttributeNames.BOOK_DIRECTORY, bookService.getBookDirectory());
@@ -150,3 +149,25 @@ public class BookCatalogController {
         return ViewNames.CATALOG_DETAIL;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

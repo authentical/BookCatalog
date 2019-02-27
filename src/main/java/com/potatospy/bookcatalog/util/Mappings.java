@@ -26,6 +26,9 @@ public class Mappings {
     // Mark a book for deletion and move it to DELETE directory
     public static final String DELETE_BOOK="delete-book";
 
+    // Delete book from database
+    public static final String CONFIRM_DELETE="confirm-delete";
+
     //== constructor
     private Mappings(){}
 

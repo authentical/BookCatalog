@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -76,7 +77,7 @@ public class BookServiceImpl implements BookService{
 
 
     /* Read Book Directory
-    1. Delete all entries in the books table in DB
+    1. Delete all entries in the books table in DB and bookManager list
     2. If the file isn't a directory,
     3. Get meta data for each book,
     4. create each book,
@@ -84,15 +85,15 @@ public class BookServiceImpl implements BookService{
     6. Add each returned row to BookManager
     */
     @Override
-    public void loadBooksFromDirectory(File directory) {
+    public void loadBooksFromDirectory() {
         // Todo Make sure book directory is initialized
 
         bookRepository.deleteAll(); // Wipe DB  table
         bookManager.deleteAllBooks();   // Wipe books from memory
 
-        for(final File fileEntry : directory.listFiles()){  // Todo catch Null pointer
+        for(final File fileEntry : bookDirectory.listFiles()){  // Todo catch Null pointer
 
-            /*DEBUG*/ System.out.println(fileEntry.getName()+ "\t\t\t\t\t\t" + directory.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
+            log.info(fileEntry.getName()+ "\t\t\t\t\t\t" + bookDirectory.getName()+"/"+ fileEntry.getName() + "\t" + LocalDate.now() + LocalTime.now());
 
             // Ignore directories
             if(!fileEntry.isDirectory()) {
@@ -131,25 +132,33 @@ public class BookServiceImpl implements BookService{
         String moveFrom =bookDirectory + "\\" + bookFileLoc;
         String moveTo= bookDirectory + "\\DELETE\\" + bookFileLoc;
 
+        Path temp;
         try {
-            Path temp = Files.move
+            temp = Files.move
                     (Paths.get(moveFrom),
                             Paths.get(moveTo));
 
-            if (temp != null) {
-                log.info("File moved to DELETE folder");
+
+            //debug
+            if (temp == null) {
+                log.info("Files.move returned null!");
             } else {
-                log.info("Couldn't move file from " + moveFrom +" to " + moveTo);
+                log.info("Files.move returned " + temp.toString());
             }
 
 
-            bookToDelete.setFileLoc(moveTo);
-            bookManager.deleteBook(bookToDelete);
-            bookRepository.save(bookToDelete);
+            bookToDelete.setFileLoc(moveTo);        // Update book fileLoc
+            bookManager.deleteBook(bookToDelete);   // Update bookManager memory copy
+            bookRepository.save(bookToDelete);      // Update bookRepository DB copy
 
-        }catch(IOException e){log.info("deleteBook got IOException");
-            log.info("Couldn't move file from " + moveFrom +" to " + moveTo +
-                    "\nFailed to move the file to DELETE folder");
+        }catch(FileSystemException e){
+            log.info("deleteBook got FileSystemException: The file may be in use by another process.");
+            e.printStackTrace();
+            log.info("Couldn't move file from " + moveFrom +" to " + moveTo);
+        }catch(IOException e){
+            log.info("deleteBook got IOException:");
+            e.printStackTrace();
+            log.info("Couldn't move file from " + moveFrom +" to " + moveTo);
         }
     }
 
@@ -168,12 +177,12 @@ public class BookServiceImpl implements BookService{
     }
 
 
-    // getBooksFromDb Todo
-    // Troubleshooting 1. Delete all rows
-    // Troubleshooting 2. Populate all rows from directory
-    // 1. Gets books from books table
-    // 2. Adds all books from DB to BookManager's list
-    // 3. Returns the BookManager
+    // getBooksFromDb
+    // Delete memory copy of books
+    // Get an iterable list of books from DB
+    // Check the books that were in DB are still in directory
+    // Adds all books from iterable list to BookManager's list
+    // Returns the BookManager
     @Override
     public BookManager getBooksFromDb() {
 
@@ -182,8 +191,18 @@ public class BookServiceImpl implements BookService{
 
         Iterable<Book> bookIterable = bookRepository.findAll();
 
+        // Check all the books that DB has still exist in bookDirectory
         for(Book book: bookIterable){
-            bookManager.addBook(book);
+
+            if(new File(bookDirectory+ "\\" + book.getFileLoc()).exists()) {
+
+                log.info("Looked at file " + bookDirectory+ "\\" + book.getFileLoc());
+                bookManager.addBook(book);
+                log.info("Added book from DB to memory");
+            } else {
+                bookRepository.delete(book);
+                log.info("Book in database did not exist in directory: " + book.getBookTitle());
+            }
         }
 
         return bookManager;
