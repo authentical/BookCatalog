@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head id="headId">
+    <meta charset="UTF-8">
+    <title>Title content</title>
+</head>
+<body>
+
+<div id="navigationId"/>
+<div align="center">
+
+
+    <form action="#" th:action="@{__${T(com.potatospy.bookcatalog.util.Mappings).ADD_BOOK}__}" th:object="${book}" method="post">
+
+        <p>Index: <input type="text" th:field="*{id}" th:text="${book.id}"/>
+        <p>Title: <input type="text" th:field="*{bookTitle}" th:text="${book.bookTitle}"/></p>
+        <p>Published Date: <input type="text" th:field="*{publishedDate}" th:text="${book.publishedDate}"/></p>
+        <p>File location: <input type="text" th:field="*{fileLoc}" th:text="${book.fileLoc}"/></p>
+        <p>Marked for deletion: <input type="text" th:field="*{markedForDeletion}" th:text="${book.markedForDeletion}"/></p>
+        <p>Authors: <input type="text" th:field="*{authors}" th:text="${book.authors}"/></p>
+
+        <p><input type="submit" value="Submit"/></p>
+
+
+    </form>
+
+
+    <table>
+
+        <tr>
+            <th>Index</th>
+            <td th:text="${book.id}"></td>
+        </tr>
+
+        <tr>
+            <th>Book Title</th>
+            <td th:text="${book.bookTitle}"></td>
+        </tr>
+
+        <tr>
+            <th>Published Date</th>
+            <th><td th:text="${book.publishedDate}"></td></th>
+        </tr>
+
+        <tr>
+            <th>File location</th>
+            <th><td th:input </th>
+            <th><td th:text="${book.fileLoc}"></td></th>
+        </tr>
+        <input type="file"
+               id="avatar" name="avatar"
+               accept="image/png, image/jpeg">
+
+        <tr>
+            <th>Marked for deletion</th>
+            <th><td th:text="${book.markedForDeletion}"></td></th>
+        </tr>
+
+        <tr>
+            <th>Authors</th>
+            <th><td th:text="${book.authors}"></td></th>
+        </tr>
+
+    </table>
+</div>
+
+
+
+</body>
+</html>

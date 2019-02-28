@@ -68,13 +68,24 @@ public class BookCatalogController {
 
         log.info("addBook method called");
 
+        Book newBook = new Book();
+
+        model.addAttribute(AttributeNames.BOOK, newBook);
+
+
         return ViewNames.ADD_BOOK;
     }
     // Add Book post mapping
     @PostMapping(Mappings.ADD_BOOK)
     public String addBookSubmit(@ModelAttribute Book newBook){
 
-        return "redirect:/" + ViewNames.CATALOG_DETAIL;
+        log.info("editBookSubmit called");
+
+
+
+        bookService.updateBook(newBook);
+
+        return "redirect:/" + Mappings.CATALOG_DETAIL;
     }
 
 
@@ -98,8 +109,6 @@ public class BookCatalogController {
         log.info("editBookSubmit called");
 
         bookService.updateBook(editedBook);
-
-
 
         return "redirect:/" + Mappings.CATALOG_DETAIL;
     }

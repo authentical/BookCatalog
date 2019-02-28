@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface BookService {
 
+    void init();                // Make sure ebooks and DELETE directories are in place
 
     void loadBooksFromDirectory();   // Scan file system book directory and
                                 // add books to database

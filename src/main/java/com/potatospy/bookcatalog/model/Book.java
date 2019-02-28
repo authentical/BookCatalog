@@ -71,6 +71,15 @@ public class Book {
         this.modifiedDateTime = modifiedDateTime;
     }
 
+
+
+
+
+    // Instead of adding all kinds of conmstructors, use factory pattern
+
+
+
+
     // Add book after metadata has been extracted
     public Book(String bookTitle, LocalDate publishedDate, String fileLoc, String authors, LocalDateTime modifiedDateTime){
         this.id = id;
@@ -81,6 +90,7 @@ public class Book {
         this.authors = authors;
         this.modifiedDateTime = modifiedDateTime;
     }
+
 
 
 

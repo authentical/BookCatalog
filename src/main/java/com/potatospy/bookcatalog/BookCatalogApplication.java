@@ -4,6 +4,7 @@ import com.potatospy.bookcatalog.dao.BookRepository;
 import com.potatospy.bookcatalog.dao.UserRepository;
 import com.potatospy.bookcatalog.model.Book;
 import com.potatospy.bookcatalog.model.User;
+import com.potatospy.bookcatalog.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,15 +26,9 @@ public class BookCatalogApplication implements CommandLineRunner {
         SpringApplication.run(BookCatalogApplication.class, args);
     }
 
-
     @Override
-    public void run(String... args) throws Exception { // Can I be more specific?
-
+    public void run(String... args) throws Exception {
 
     }
-
-
-
-
 }
 

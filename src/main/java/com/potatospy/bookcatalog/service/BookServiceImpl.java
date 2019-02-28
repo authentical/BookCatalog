@@ -1,6 +1,7 @@
 package com.potatospy.bookcatalog.service;
 
 import com.potatospy.bookcatalog.dao.BookRepository;
+import com.potatospy.bookcatalog.exceptions.StorageException;
 import com.potatospy.bookcatalog.model.Book;
 import com.potatospy.bookcatalog.model.BookManager;
 import lombok.Getter;
@@ -23,7 +24,7 @@ import java.util.List;
 
 
 /* I've tasked BookService with:
-1. Scanning the todo book directory for books and
+1. Scanning the book directory for books and
 storing the list in the database and
 then retrieving all books from the database and
 telling BookManager to add each one to it's list
@@ -49,6 +50,7 @@ public class BookServiceImpl implements BookService{
     private final BookManager bookManager = new BookManager();
 
     private File bookDirectory = new File("D:\\edu_repo\\ebooks_test\\");
+    private File deleteDirectory = new File(bookDirectory+"\\DELETE\\");
 
     @Autowired
     DataSource dataSource;  // DataSource config is in application.properties
@@ -66,11 +68,23 @@ public class BookServiceImpl implements BookService{
 
     public BookServiceImpl() {
 
+        init();
     }
 
-
     // == INIT ==
-    // Todo make sure directories exist
+    @Override
+    public void init() {
+        try {
+            if(!bookDirectory.exists()) {
+                Files.createDirectory(Paths.get(bookDirectory.toString()));
+            }
+            if(!deleteDirectory.exists()){
+                Files.createDirectory(Paths.get(deleteDirectory.toString()));
+            }
+        } catch (IOException e) {
+            throw new StorageException("Could not initialize storage", e);
+        }
+    }
 
 
     // == Public methods ==
@@ -86,7 +100,6 @@ public class BookServiceImpl implements BookService{
     */
     @Override
     public void loadBooksFromDirectory() {
-        // Todo Make sure book directory is initialized
 
         bookRepository.deleteAll(); // Wipe DB  table
         bookManager.deleteAllBooks();   // Wipe books from memory
@@ -130,7 +143,7 @@ public class BookServiceImpl implements BookService{
         String bookFileLoc = bookToDelete.getFileLoc();
 
         String moveFrom =bookDirectory + "\\" + bookFileLoc;
-        String moveTo= bookDirectory + "\\DELETE\\" + bookFileLoc;
+        String moveTo= deleteDirectory +"\\" + bookFileLoc;
 
         Path temp;
         try {
