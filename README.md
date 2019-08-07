@@ -1,3 +1,5 @@
+SECURITY VULNERABILITIES
+
 # BookCatalog
 Book Catalog is an ebook manager.
 
